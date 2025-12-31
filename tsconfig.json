@@ -1,7 +1,9 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "types": ["jest"],
+    "types": [],
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],

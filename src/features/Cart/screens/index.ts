@@ -1,0 +1,1 @@
+export { default as CardScreen } from '@/features/Cart/screens/Cart'

@@ -12,3 +12,6 @@ export interface Product {
     image: string
     rating: ProductRating
 }
+
+export interface ProductRequest { }
+export interface ProductResponse extends Product { }
