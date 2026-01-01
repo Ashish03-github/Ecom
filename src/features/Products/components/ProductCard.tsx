@@ -9,31 +9,24 @@ import { useNavigation } from '@react-navigation/native';
 import ProductImage from './ProductImage';
 import ProductItemHeader from './ProductItemHeader';
 import ProductMeta from './ProductMeta';
+import { Product } from '../types/product.type';
 
-const ProductCard = ({ item }: any) => {
+const ProductCard = ({ product, key }: { product: Product; key: string }) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
   const navigation = useNavigation();
 
   return (
     <Pressable
+      key={key}
       onPress={() => navigation.navigate('ProductDetails', { product: item })}
       style={styles.card}
     >
-      <ProductImage
-        image={
-          item?.image ||
-          'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png'
-        }
-      />
+      <ProductImage image={product?.image} />
 
       <View style={{ flex: 1 }}>
-        <ProductItemHeader
-          title={item?.title ? item.title : 'Product Title'}
-          // rating={item.rating?.rate}
-          rating={5.5}
-        />
-        <ProductMeta category={"Men's category"} price={90.0} />
+        <ProductItemHeader title={product.title} rating={product.rating.rate} />
+        <ProductMeta category={product.category} price={product.price} />
       </View>
     </Pressable>
   );

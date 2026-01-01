@@ -1,11 +1,9 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import AppButton from '@/common/components/AppButton';
 import AppContainer from '@/common/components/AppContainer';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import useTheme from '@/common/hooks/useTheme';
-import ProductCard from '../components/ProductCard';
 import ProductList from '../components/ProductList';
 
 const Products = () => {
