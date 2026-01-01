@@ -37,7 +37,10 @@ const AppContainer: React.FC<AppContainerProps> = ({
 
         {buttonLabel ? (
           <View style={styles.buttonContainer}>
-            <AppButton title={buttonLabel} onPress={onPress} />
+            <AppButton
+              title={buttonLabel}
+              onPress={onPress ? onPress : () => {}}
+            />
           </View>
         ) : null}
       </View>
