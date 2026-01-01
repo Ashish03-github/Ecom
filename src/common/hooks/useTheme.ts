@@ -1,11 +1,17 @@
-import { useState } from 'react'
+import colors from '@/theme/theme.colors'
+import fonts from '@/theme/theme.fonts'
+import { useColorScheme } from 'react-native'
 
 const useTheme = () => {
-    const [data, setData] = useState([])
+    const colorScheme = useColorScheme()
+    const isDarkMode = colorScheme === 'dark'
+    const themeVariant = isDarkMode ? "dark" : "light";
+
     return {
-        data,
-        setData
-    }
+        isDarkMode,
+        Colors: colors[themeVariant],
+        Fonts: fonts,
+    };
 }
 
 export default useTheme

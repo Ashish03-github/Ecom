@@ -1,0 +1,1 @@
+export { default as OrdersHistoryScreen } from '@/features/Orders/screens/OrdersHistory'

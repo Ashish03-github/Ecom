@@ -1,7 +1,9 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "types": ["jest"],
+    "types": [],
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"],
@@ -11,8 +13,7 @@
       "@/navigation/": ["./src/navigation"],
       "@/services/": ["./src/services"],
       "@/store/": ["./src/store"],
-      "@/theme/": ["./src/theme"],
-      "@/utils/": ["./src/utills"]
+      "@/theme/": ["./src/theme"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

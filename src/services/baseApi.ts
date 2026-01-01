@@ -1,0 +1,20 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { RootState } from '@/store/type'
+export const api = createApi({
+    reducerPath: 'api',
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://fakestoreapi.com',
+        prepareHeaders: (headers, { getState }) => {
+            const state = getState() as RootState
+            const token = state.auth?.token
+
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`)
+            }
+
+            return headers
+        },
+    }),
+    tagTypes: ['products', 'cart', 'orders'],
+    endpoints: () => ({}),
+})
