@@ -29,7 +29,7 @@ const ProductCard = () => {
           uri: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
           priority: FastImage.priority.high,
         }}
-        resizeMode={FastImage.resizeMode.cover}
+        resizeMode={FastImage.resizeMode.contain}
       />
       <View style={{ flex: 1 }}>
         <View style={styles.productNameAndRatingContainer}>
