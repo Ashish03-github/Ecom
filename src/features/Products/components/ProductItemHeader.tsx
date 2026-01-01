@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rating: {
+    marginTop: scale(3),
+    marginRight: scale(3),
     fontSize: normalizeFonts(10),
-    marginRight: scale(2),
   },
 });
 

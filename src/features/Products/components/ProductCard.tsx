@@ -19,7 +19,9 @@ const ProductCard = ({ product, key }: { product: Product; key: string }) => {
   return (
     <Pressable
       key={key}
-      onPress={() => navigation.navigate('ProductDetails', { product: item })}
+      onPress={() =>
+        navigation.navigate('ProductDetails', { product: product })
+      }
       style={styles.card}
     >
       <ProductImage image={product?.image} />

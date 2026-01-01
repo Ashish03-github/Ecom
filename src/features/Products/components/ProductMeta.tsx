@@ -19,7 +19,9 @@ const ProductMeta = ({ category, price }: Props) => {
 
         <View style={styles.priceRow}>
           <AppIcon name="indian-rupee-sign" size={13} />
-          <Text style={[styles.price, Fonts.font600]}>{price}</Text>
+          <Text style={[styles.price, Fonts.font600]}>
+            {Number(price).toFixed(2)}
+          </Text>
         </View>
       </View>
 
