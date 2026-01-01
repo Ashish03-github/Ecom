@@ -8,10 +8,10 @@ import { ThemeFonts } from '@/theme/theme.fonts';
 import { normalizeFonts, scale, scaleVertical } from '@/theme/theme.scale';
 import { Product } from '@/features/Products/types/product.type';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../store/cart.slice';
+import { removeFromCart, updateQuantity } from '../store/cart.slice';
 
 interface CartItemCardProps {
-  product: Product;
+  product: Product & { quantity: number };
   key: string;
 }
 const CartItemCard: React.FC<CartItemCardProps> = ({ product, key }) => {
@@ -21,7 +21,21 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ product, key }) => {
 
   const onRemovePress = useCallback(() => {
     dispatch(removeFromCart(product.id));
-  }, []);
+  }, [dispatch, product.id]);
+
+  const onDecrease = useCallback(() => {
+    if (product.quantity > 1) {
+      dispatch(
+        updateQuantity({ id: product.id, quantity: product.quantity - 1 }),
+      );
+    }
+  }, [dispatch, product.id, product.quantity, onRemovePress]);
+
+  const onIncrease = useCallback(() => {
+    dispatch(
+      updateQuantity({ id: product.id, quantity: product.quantity + 1 }),
+    );
+  }, [dispatch, product.id, product.quantity]);
 
   return (
     <View key={key} style={styles.cartCard}>
@@ -57,13 +71,21 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ product, key }) => {
 
         <View style={styles.footerRow}>
           <View style={styles.quantityContainer}>
-            <TouchableOpacity activeOpacity={0.8} style={styles.quantityButton}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.quantityButton}
+              onPress={onDecrease}
+            >
               <AppIcon name="minus" size={8} color={Colors.white} />
             </TouchableOpacity>
 
-            <Text style={styles.productQuantity}>1</Text>
+            <Text style={styles.productQuantity}>{product.quantity}</Text>
 
-            <TouchableOpacity activeOpacity={0.8} style={styles.quantityButton}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.quantityButton}
+              onPress={onIncrease}
+            >
               <AppIcon name="plus" size={8} color={Colors.white} />
             </TouchableOpacity>
           </View>

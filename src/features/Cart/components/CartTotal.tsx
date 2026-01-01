@@ -5,10 +5,19 @@ import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import useTheme from '@/common/hooks/useTheme';
 import AppIcon from '@/common/components/AppIcon';
+import { useAppSelctor } from '@/store/hooks';
+import { Product } from '@/features/Products/types/product.type';
 
 const CartTotal = () => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => styleFn(Colors, Fonts), [Fonts, Colors]);
+  const { cartData } = useAppSelctor(state => state.cart);
+
+  const totalAmount = cartData.reduce(
+    (total: number, item: Product) => total + item.price * (item.quantity || 1),
+    0,
+  );
+
   return (
     <View style={styles.priceContainer}>
       <Text style={styles.totalAmount}>Total: </Text>
@@ -18,7 +27,7 @@ const CartTotal = () => {
           style={{ marginBottom: scale(5) }}
           size={14}
         />
-        <Text style={styles.price}>109.95</Text>
+        <Text style={styles.price}>{totalAmount.toFixed(2)}</Text>
       </View>
     </View>
   );
@@ -30,7 +39,6 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
-
     price: {
       ...Fonts.font600,
       marginLeft: scale(5),
@@ -41,7 +49,10 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       textAlign: 'right',
       fontSize: normalizeFonts(20),
     },
-    priceIconContainer: { flexDirection: 'row', alignItems: 'center' },
+    priceIconContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   });
 
 export default CartTotal;

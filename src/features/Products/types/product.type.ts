@@ -10,7 +10,8 @@ export interface Product {
     description: string
     category: string
     image: string
-    rating: ProductRating
+    rating: ProductRating,
+    quantity?: number,
 }
 
 export interface ProductRequest { }
