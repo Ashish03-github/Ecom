@@ -10,6 +10,7 @@ import ProductImage from './ProductImage';
 import ProductItemHeader from './ProductItemHeader';
 import ProductMeta from './ProductMeta';
 import { Product } from '../types/product.type';
+import { clearStorage } from '@/services/app.storage';
 
 const ProductCard = ({ product, key }: { product: Product; key: string }) => {
   const { Colors, Fonts } = useTheme();

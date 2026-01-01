@@ -1,1 +1,1 @@
-export { default as OrdersScreen } from '@/features/Orders/screens/Orders'
+export { default as OrdersHistoryScreen } from '@/features/Orders/screens/OrdersHistory'

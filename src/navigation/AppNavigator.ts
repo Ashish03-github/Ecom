@@ -1,4 +1,5 @@
 import { CardScreen } from "@/features/Cart/screens";
+import { OrdersHistoryScreen } from "@/features/Orders/screens";
 import { ProductDetailsScreen, ProductsListScreen } from "@/features/Products/screens";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -10,7 +11,7 @@ const AppNavigator = createStackNavigator({
         ProductsScreen: ProductsListScreen,
         ProductDetails: ProductDetailsScreen,
         CartScreen: CardScreen,
-        // ProductDetails: ProductDetailsScreen,
+        OrdersHistoryScreen: OrdersHistoryScreen
     },
 });
 

@@ -10,20 +10,23 @@ import { useAppSelctor } from '@/store/hooks';
 import { useDispatch } from 'react-redux';
 import { placeOrders } from '@/features/Orders/store/orders.slice';
 import { Product } from '@/features/Products/types/product.type';
+import { useNavigation } from '@react-navigation/native';
+import { clearCart } from '../store/cart.slice';
+import { saveOrderToStorage } from '@/features/Orders/services/order.storage';
 
 const Cart = () => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
   const { cartData } = useAppSelctor(state => state.cart);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const totalAmount = cartData.reduce(
     (total: number, item: Product) => total + item.price * (item.quantity || 1),
     0,
   );
 
-  const onPlaceOrderPress = useCallback(() => {
-    console.log('hiii', cartData, totalAmount);
+  const onPlaceOrderPress = useCallback(async () => {
     if (cartData.length === 0) {
       Alert.alert(
         'Alert',
@@ -37,14 +40,12 @@ const Cart = () => {
         { cancelable: true },
       );
     } else {
-      dispatch(
-        placeOrders({
-          items: cartData,
-          total: totalAmount,
-        }),
-      );
+      const orderId = await saveOrderToStorage(cartData, totalAmount);
+      dispatch(placeOrders({ orderId }));
+      navigation.navigate('OrdersHistoryScreen');
     }
   }, [dispatch]);
+
   return (
     <AppContainer
       screenHeadings="My Cart"
