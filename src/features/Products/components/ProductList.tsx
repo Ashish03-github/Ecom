@@ -1,6 +1,7 @@
-import { View, FlatList, StyleSheet } from 'react-native';
-import React, { useCallback } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import React from 'react';
 import ProductCard from './ProductCard';
+import { scale } from '@/theme/theme.scale';
 
 const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -26,10 +27,10 @@ export default ProductList;
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingBottom: 16,
+    paddingBottom: scale(16),
   },
   row: {
     justifyContent: 'space-between',
-    marginBottom: 16,
+    marginBottom: scale(16),
   },
 });

@@ -6,6 +6,7 @@ const colors = {
         black: "#000000",
         skyblueLight: "#d9e9f9",
         grey: "#757474",
+        lightGrey: "#AEACAC",
     },
     dark: {
         primary: "#5d52d2",
@@ -13,6 +14,7 @@ const colors = {
         black: "#000000",
         skyblueLight: "#d9e9f9",
         grey: "#757474",
+        lightGrey: "#AEACAC",
     }
 }
 

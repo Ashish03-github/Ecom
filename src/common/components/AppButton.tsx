@@ -28,7 +28,7 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
   StyleSheet.create({
     buttonContainer: {
       width: '100%',
-      minHeight: scale(48),
+      minHeight: scale(44),
       borderRadius: scale(100),
       backgroundColor: Colors.primary,
       justifyContent: 'center',

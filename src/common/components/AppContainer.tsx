@@ -42,6 +42,7 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       flex: 1,
       paddingTop: scale(24),
       padding: scale(16),
+      backgroundColor: Colors.white,
     },
     childrenContainer: {
       flex: 1,
