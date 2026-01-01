@@ -39,8 +39,8 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             state.error = '';
             addDataToStorage(authStorageKeys.authStatus, {
-                token: state.token,
-                isAuthenticated: state.isAuthenticated
+                token: '',
+                isAuthenticated: ''
             }).then(() => console.log("User logout successfully"))
         },
     }

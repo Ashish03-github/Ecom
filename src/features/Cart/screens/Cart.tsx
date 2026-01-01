@@ -50,7 +50,7 @@ const Cart = () => {
       console.error('Error placing order:', error);
       Alert.alert('Error', 'Failed to place order. Please try again.');
     }
-  }, [dispatch]);
+  }, [dispatch, cartData]);
 
   return (
     <AppContainer

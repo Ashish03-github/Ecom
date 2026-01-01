@@ -26,6 +26,7 @@ const OrderHistoryCard = ({
         price={data.price}
         orderId={data.orderId}
         category={data.category}
+        quatity={data.quantity}
       />
     </View>
   );

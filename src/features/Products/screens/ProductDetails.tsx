@@ -48,19 +48,34 @@ const ProductDetails = () => {
       setShowLoginModal(true);
       return;
     }
-
     dispatch(addToCart(product));
     navigation.navigate('CartScreen', { product });
   };
 
   const onLoginPress = useCallback(() => {
     dispatch(logIn({ email: authState.email, password: authState.password }));
-    if (isAuthenticated) {
+    setAuthState(prev => ({ ...prev, error: '' }));
+  }, [dispatch, authState.email, authState.password]);
+
+  React.useEffect(() => {
+    if (isAuthenticated && showLoginModal) {
       setShowLoginModal(false);
       dispatch(addToCart(product));
       navigation.navigate('CartScreen', { product });
     }
-  }, [dispatch, authState.email, authState.password, isAuthenticated, product]);
+  }, [isAuthenticated, showLoginModal, dispatch, product, navigation]);
+
+  const error = useAppSelctor(state => state.auth.error);
+  React.useEffect(() => {
+    if (error) {
+      setAuthState(prev => ({ ...prev, error }));
+    }
+  }, [error]);
+
+  const handleCloseModal = useCallback(() => {
+    setShowLoginModal(false);
+    setAuthState(prev => ({ ...prev, error: '' }));
+  }, []);
 
   return (
     <>
@@ -87,7 +102,7 @@ const ProductDetails = () => {
         visible={showLoginModal}
         authState={authState}
         setAuthState={setAuthState}
-        onClose={() => setShowLoginModal(false)}
+        onClose={handleCloseModal}
         onLoginPress={onLoginPress}
       />
     </>

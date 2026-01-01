@@ -13,7 +13,7 @@ export const saveOrderToStorage = async (
     items: Product[],
     total: number
 ) => {
-    const orderId = uuid.v4() as string;
+    const orderId = uuid.v4();
     const date = new Date().toISOString();
 
     const orderItems: StoredOrderItem[] = items.map(item => ({
@@ -29,6 +29,5 @@ export const saveOrderToStorage = async (
         : orderItems;
 
     await addDataToStorage(ordersStorageKey.orderHistory, updatedData);
-
     return orderId
 };

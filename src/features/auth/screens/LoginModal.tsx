@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Pressable,
   Platform,
+  Text,
 } from 'react-native';
 import React from 'react';
 import { ThemeColors } from '@/theme/theme.colors';
@@ -52,7 +53,6 @@ const LoginModal = ({
           >
             <AppInput
               label="Email"
-              error={authState.error}
               value={authState.email}
               onChangeText={text =>
                 setAuthState(prev => ({
@@ -64,7 +64,6 @@ const LoginModal = ({
             />
             <AppInput
               label="Password"
-              error={authState.error}
               value={authState.password}
               onChangeText={text =>
                 setAuthState(prev => ({
@@ -74,6 +73,10 @@ const LoginModal = ({
               }
               placeholder="Enter your password"
             />
+
+            {authState.error ? (
+              <Text style={styles.errorText}>{authState.error}</Text>
+            ) : null}
 
             <AppButton
               style={{ marginTop: scale(20) }}
@@ -101,5 +104,11 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       backgroundColor: Colors.white,
       borderRadius: scale(12),
       padding: scale(20),
+    },
+    errorText: {
+      ...Fonts.font400,
+      color: 'red',
+      fontSize: normalizeFonts(12),
+      // marginTop: scale(8),
     },
   });

@@ -5,7 +5,6 @@ import useTheme from '@/common/hooks/useTheme';
 import { normalizeFonts, scale } from '@/theme/theme.scale';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
-import { OrderHistoryCardItem } from '../types/components.types';
 
 type OrderDetailsProps = {
   title: string;
@@ -13,6 +12,7 @@ type OrderDetailsProps = {
   date: string;
   category: string;
   orderId: string;
+  quatity: number;
 };
 const OrderDetails = ({
   title,
@@ -20,6 +20,7 @@ const OrderDetails = ({
   date,
   category,
   orderId,
+  quatity,
 }: OrderDetailsProps) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
@@ -39,7 +40,9 @@ const OrderDetails = ({
 
         <View style={styles.priceContainer}>
           <AppIcon name="indian-rupee-sign" color={Colors.primary} size={14} />
-          <Text style={styles.price}>{price.toFixed(2)}</Text>
+          <Text style={styles.price}>
+            {((quatity || 1) * price).toFixed(2)}
+          </Text>
         </View>
 
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.dateText}>

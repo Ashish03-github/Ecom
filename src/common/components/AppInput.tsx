@@ -37,9 +37,7 @@ const AppInput: React.FC<AppInputProps> = ({
         {...props}
       />
 
-      {error ? (
-        <Text style={styles.errorText}>this is testing error code</Text>
-      ) : null}
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 };
@@ -69,7 +67,7 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       borderRadius: scale(8),
       borderWidth: 1,
       ...Fonts.font400,
-      fontSize: normalizeFonts(12),
+      fontSize: normalizeFonts(14),
       borderColor: Colors.lightGrey,
       paddingHorizontal: scale(10),
     },

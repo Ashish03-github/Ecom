@@ -21,8 +21,8 @@ const Products = () => {
         if (success) {
           dispatch(
             setAuthenticationStatus({
-              token: data.token,
-              isAuthenticated: data.isAuthenticated,
+              token: data?.token || '',
+              isAuthenticated: data?.isAuthenticated || '',
             }),
           );
         }
