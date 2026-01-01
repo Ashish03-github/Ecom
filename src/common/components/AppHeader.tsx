@@ -28,7 +28,9 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
     headerContainer: {
       width: '100%',
       flexDirection: 'row',
-      height: scaleVertical(60),
+      marginTop: scaleVertical(20),
+      paddingVertical: scaleVertical(10),
+      // height: scaleVertical(0),
       alignItems: 'center',
     },
     heading: {
