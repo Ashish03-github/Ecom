@@ -11,7 +11,7 @@ interface AppContainerProps extends ViewProps {
   children: React.ReactNode;
   buttonLabel?: string | null;
   screenHeadings: string;
-  onPress?: () => {};
+  onPress?: () => void;
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({

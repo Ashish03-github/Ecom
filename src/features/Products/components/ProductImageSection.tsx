@@ -7,7 +7,17 @@ import { normalizeFonts, scale } from '@/theme/theme.scale';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 
-const ProductImageSection = () => {
+interface ProductImageSectionProps {
+  image: string;
+  rating?: number;
+  ratingCount?: number;
+}
+
+const ProductImageSection = ({
+  image,
+  rating = 0,
+  ratingCount = 0,
+}: ProductImageSectionProps) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => styleFn(Colors, Fonts), [Colors, Fonts]);
 
@@ -16,17 +26,18 @@ const ProductImageSection = () => {
       <FastImage
         style={styles.image}
         source={{
-          uri: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
+          uri: image,
           priority: FastImage.priority.high,
+          cache: FastImage.cacheControl.immutable,
         }}
         resizeMode={FastImage.resizeMode.contain}
       />
 
       <View style={styles.ratingContainer}>
-        <Text style={styles.ratingText}>5.5</Text>
+        <Text style={styles.ratingText}>{rating.toFixed(1)}</Text>
         <AppIcon type="Ionicons" name="star" color="#fcc035" size={12} />
         <Text style={styles.separator}>|</Text>
-        <Text style={styles.ratingCount}>300</Text>
+        <Text style={styles.ratingCount}>{ratingCount} reviews</Text>
       </View>
     </View>
   );
@@ -47,7 +58,7 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
     },
     ratingContainer: {
       position: 'absolute',
-      top: scale(16),
+      bottom: scale(16),
       right: scale(16),
       flexDirection: 'row',
     },
