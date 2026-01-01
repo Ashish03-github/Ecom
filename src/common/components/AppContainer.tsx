@@ -1,4 +1,4 @@
-import { View, Text, ViewComponent, ViewProps, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewProps } from 'react-native';
 import React from 'react';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
@@ -6,12 +6,16 @@ import useTheme from '../hooks/useTheme';
 import { scale } from '@/theme/theme.scale';
 import AppButton from './AppButton';
 import AppHeader from './AppHeader';
+import { useAppSelctor } from '@/store/hooks';
+import LoginModal from '@/features/auth/screens/LoginModal';
 
 interface AppContainerProps extends ViewProps {
   children: React.ReactNode;
   buttonLabel?: string | null;
   screenHeadings: string;
   onPress?: () => void;
+  isLoginModalVisible?: boolean;
+  onModalClose?: () => void;
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({
@@ -22,20 +26,25 @@ const AppContainer: React.FC<AppContainerProps> = ({
 }) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
+
   return (
     <View style={styles.container}>
-      <View style={styles.childrenContainer}>
-        <AppHeader heading={screenHeadings} />
-        {children}
-      </View>
-      {buttonLabel ? (
-        <View style={styles.buttonContainer}>
-          <AppButton title={buttonLabel} onPress={onPress} />
+      <View style={{ flex: 1 }}>
+        <View style={styles.childrenContainer}>
+          <AppHeader heading={screenHeadings} />
+          {children}
         </View>
-      ) : null}
+
+        {buttonLabel ? (
+          <View style={styles.buttonContainer}>
+            <AppButton title={buttonLabel} onPress={onPress} />
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 };
+
 const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
   StyleSheet.create({
     container: {

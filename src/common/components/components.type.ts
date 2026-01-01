@@ -1,9 +1,9 @@
-import { ButtonProps, StyleProp, ViewProps } from "react-native";
+import { ButtonProps, StyleProp, ViewProps, ViewStyle } from "react-native";
 import { IconProps } from "react-native-vector-icons/Icon";
 export interface AppButtonProps extends ButtonProps {
     title: string;
     onPress: () => void;
-    style?: StyleProp<ViewProps>;
+    style?: StyleProp<ViewStyle>;
 }
 
 type IconType = 'FontAwesome6' | 'Octicons' | 'Ionicons';
