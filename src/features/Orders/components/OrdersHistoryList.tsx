@@ -1,7 +1,7 @@
 import { View, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import OrderHistoryCard from './OrderHistoryCard';
-import { getDataFromStorage } from '@/services/app.storage';
+import { clearStorage, getDataFromStorage } from '@/services/app.storage';
 import { ordersStorageKey } from '../constants/orders.storage.keys';
 import { OrderHistoryCardItem } from '../types/components.types';
 

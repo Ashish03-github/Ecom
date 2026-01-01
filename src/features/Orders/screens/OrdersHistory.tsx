@@ -15,11 +15,6 @@ const OrdersHistory = () => {
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
   return (
     <AppContainer buttonLabel={null} screenHeadings="Orders History">
-      {/* <OrderHistoryCard />
-      <OrderHistoryCard />
-      <OrderHistoryCard />
-      <OrderHistoryCard />
-      <OrderHistoryCard /> */}
       <OrdersHistoryList />
     </AppContainer>
   );

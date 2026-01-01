@@ -42,12 +42,12 @@ const OrderDetails = ({
           <Text style={styles.price}>{price.toFixed(2)}</Text>
         </View>
 
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.orderIdText}>
-          <Text style={styles.minorHeading}>Order Id:</Text> {orderId}
-        </Text>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.dateText}>
           <Text style={styles.minorHeading}>Date:</Text>{' '}
           {new Date(date).toDateString()}
+        </Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.orderIdText}>
+          <Text style={styles.minorHeading}>Order Id:</Text> {orderId}
         </Text>
       </View>
     </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import AppContainer from '@/common/components/AppContainer';
 import ProductImageSection from '../components/ProductImageSection';
 import ProductInfoSection from '../components/ProductInfoSection';

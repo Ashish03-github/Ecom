@@ -43,6 +43,7 @@ const Cart = () => {
       const orderId = await saveOrderToStorage(cartData, totalAmount);
       dispatch(placeOrders({ orderId }));
       navigation.navigate('OrdersHistoryScreen');
+      dispatch(clearCart());
     }
   }, [dispatch]);
 
