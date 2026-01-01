@@ -9,24 +9,28 @@ import AppHeader from './AppHeader';
 
 interface AppContainerProps extends ViewProps {
   children: React.ReactNode;
-  buttonLabel?: string;
+  buttonLabel?: string | null;
+  screenHeadings: string;
+  onPress?: () => {};
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({
   children,
-  buttonLabel,
+  buttonLabel = 'continue',
+  screenHeadings,
+  onPress,
 }) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
   return (
     <View style={styles.container}>
       <View style={styles.childrenContainer}>
-        <AppHeader />
+        <AppHeader heading={screenHeadings} />
         {children}
       </View>
       {buttonLabel ? (
         <View style={styles.buttonContainer}>
-          <AppButton title="Continue" onPress={() => {}} />
+          <AppButton title={buttonLabel} onPress={onPress} />
         </View>
       ) : null}
     </View>
@@ -36,11 +40,11 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      paddingTop: scale(24),
       padding: scale(16),
     },
     childrenContainer: {
       flex: 1,
-      backgroundColor: 'red',
     },
     buttonContainer: {
       flex: 0.06,

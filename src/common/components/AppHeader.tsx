@@ -5,16 +5,20 @@ import { ThemeFonts } from '@/theme/theme.fonts';
 import useTheme from '../hooks/useTheme';
 import { normalizeFonts, scale, scaleVertical } from '@/theme/theme.scale';
 import AppIcon from './AppIcon';
+import { AppHeaderProps } from './components.type';
+import { useNavigation } from '@react-navigation/native';
 
-type AppHeaderProps = {};
-
-const AppHeader = () => {
+const AppHeader: React.FC<AppHeaderProps> = ({ heading }) => {
   const { Colors, Fonts } = useTheme();
+  const navigation = useNavigation();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={styles.headerContainer}>
-      <AppIcon name="arrow-left" size={20} />
-      <Text style={styles.heading}>Products</Text>
+      <AppIcon onPress={goBack} name="arrow-left" size={20} />
+      <Text style={styles.heading}>{heading}</Text>
     </View>
   );
 };
@@ -25,15 +29,13 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       width: '100%',
       flexDirection: 'row',
       height: scaleVertical(60),
-      backgroundColor: 'yellow',
-      //   justifyContent: 'center',
       alignItems: 'center',
     },
     heading: {
       ...Fonts.font600,
       fontSize: normalizeFonts(22),
       color: Colors.black,
-      marginLeft: scale(10),
+      marginLeft: scale(16),
     },
   });
 export default AppHeader;
