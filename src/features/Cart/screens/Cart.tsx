@@ -1,18 +1,56 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import React, { useCallback } from 'react';
 import AppContainer from '@/common/components/AppContainer';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import useTheme from '@/common/hooks/useTheme';
 import { normalizeFonts, scale } from '@/theme/theme.scale';
 import CartItemsList from '../components/CartItemsList';
+import { useAppSelctor } from '@/store/hooks';
+import { useDispatch } from 'react-redux';
+import { placeOrders } from '@/features/Orders/store/orders.slice';
+import { Product } from '@/features/Products/types/product.type';
 
 const Cart = () => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
+  const { cartData } = useAppSelctor(state => state.cart);
+  const dispatch = useDispatch();
 
+  const totalAmount = cartData.reduce(
+    (total: number, item: Product) => total + item.price * (item.quantity || 1),
+    0,
+  );
+
+  const onPlaceOrderPress = useCallback(() => {
+    console.log('hiii', cartData, totalAmount);
+    if (cartData.length === 0) {
+      Alert.alert(
+        'Alert',
+        'Cannot place order as cart is empty',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ],
+        { cancelable: true },
+      );
+    } else {
+      dispatch(
+        placeOrders({
+          items: cartData,
+          total: totalAmount,
+        }),
+      );
+    }
+  }, [dispatch]);
   return (
-    <AppContainer screenHeadings="My Cart" buttonLabel={'Place Order'}>
+    <AppContainer
+      screenHeadings="My Cart"
+      buttonLabel={'Place Order'}
+      onPress={onPlaceOrderPress}
+    >
       <View style={styles.container}>
         <CartItemsList />
       </View>
