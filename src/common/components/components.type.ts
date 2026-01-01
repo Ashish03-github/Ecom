@@ -18,4 +18,5 @@ export interface AppIconProps extends IconProps {
 
 export interface AppHeaderProps {
     heading: string;
+    canGoBack?: boolean;
 };

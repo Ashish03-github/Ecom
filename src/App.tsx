@@ -4,9 +4,10 @@ import { store } from './store/store';
 import { createStaticNavigation } from '@react-navigation/native';
 import RootNavigatior from './navigation/RootNavigator';
 import { StatusBar } from 'react-native';
+import { Product } from './features/Products/types/product.type';
 
 export type RootStackParamList = {
-  Products: undefined;
+  Products: { product: Product };
   ProductDetails: { productId: string };
   Cart: undefined;
 };

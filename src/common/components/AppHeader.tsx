@@ -8,7 +8,7 @@ import AppIcon from './AppIcon';
 import { AppHeaderProps } from './components.type';
 import { useNavigation } from '@react-navigation/native';
 
-const AppHeader: React.FC<AppHeaderProps> = ({ heading }) => {
+const AppHeader: React.FC<AppHeaderProps> = ({ heading, canGoBack }) => {
   const { Colors, Fonts } = useTheme();
   const navigation = useNavigation();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
@@ -17,7 +17,9 @@ const AppHeader: React.FC<AppHeaderProps> = ({ heading }) => {
   };
   return (
     <View style={styles.headerContainer}>
-      <AppIcon onPress={goBack} name="arrow-left" size={20} />
+      {canGoBack ? (
+        <AppIcon onPress={goBack} name="arrow-left" size={20} />
+      ) : null}
       <Text style={styles.heading}>{heading}</Text>
     </View>
   );

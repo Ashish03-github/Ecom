@@ -54,10 +54,6 @@ const ProductDetails = () => {
   };
 
   const onLoginPress = useCallback(() => {
-    // console.log('Is Authenticated =>', {
-    //   email: authState.email,
-    //   password: authState.password,
-    // });
     dispatch(logIn({ email: authState.email, password: authState.password }));
     if (isAuthenticated) {
       setShowLoginModal(false);

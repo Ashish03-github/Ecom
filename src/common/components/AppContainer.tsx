@@ -6,8 +6,6 @@ import useTheme from '../hooks/useTheme';
 import { scale } from '@/theme/theme.scale';
 import AppButton from './AppButton';
 import AppHeader from './AppHeader';
-import { useAppSelctor } from '@/store/hooks';
-import LoginModal from '@/features/auth/screens/LoginModal';
 
 interface AppContainerProps extends ViewProps {
   children: React.ReactNode;
@@ -16,6 +14,7 @@ interface AppContainerProps extends ViewProps {
   onPress?: () => void;
   isLoginModalVisible?: boolean;
   onModalClose?: () => void;
+  canGoBack?: boolean;
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({
@@ -23,6 +22,7 @@ const AppContainer: React.FC<AppContainerProps> = ({
   buttonLabel = 'continue',
   screenHeadings,
   onPress,
+  canGoBack = true,
 }) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
@@ -31,7 +31,7 @@ const AppContainer: React.FC<AppContainerProps> = ({
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <View style={styles.childrenContainer}>
-          <AppHeader heading={screenHeadings} />
+          <AppHeader canGoBack={canGoBack} heading={screenHeadings} />
           {children}
         </View>
 
