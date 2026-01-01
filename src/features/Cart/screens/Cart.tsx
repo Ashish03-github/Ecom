@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { placeOrders } from '@/features/Orders/store/orders.slice';
 import { Product } from '@/features/Products/types/product.type';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '@/navigation/types';
 import { clearCart } from '../store/cart.slice';
 import { saveOrderToStorage } from '@/features/Orders/services/order.storage';
 
@@ -19,7 +21,7 @@ const Cart = () => {
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
   const { cartData } = useAppSelctor(state => state.cart);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const totalAmount = cartData.reduce(
     (total: number, item: Product) => total + item.price * (item.quantity || 1),
@@ -27,23 +29,26 @@ const Cart = () => {
   );
 
   const onPlaceOrderPress = useCallback(async () => {
-    if (cartData.length === 0) {
+    const currentCartData = [...cartData];
+
+    if (currentCartData.length === 0) {
       Alert.alert(
         'Alert',
         'Cannot place order as cart is empty',
-        [
-          {
-            text: 'OK',
-            onPress: () => console.log('OK Pressed'),
-          },
-        ],
+        [{ text: 'OK' }],
         { cancelable: true },
       );
-    } else {
-      const orderId = await saveOrderToStorage(cartData, totalAmount);
+      return;
+    }
+
+    try {
+      dispatch(clearCart());
+      const orderId = await saveOrderToStorage(currentCartData, totalAmount);
       dispatch(placeOrders({ orderId }));
       navigation.navigate('OrdersHistoryScreen');
-      dispatch(clearCart());
+    } catch (error) {
+      console.error('Error placing order:', error);
+      Alert.alert('Error', 'Failed to place order. Please try again.');
     }
   }, [dispatch]);
 
