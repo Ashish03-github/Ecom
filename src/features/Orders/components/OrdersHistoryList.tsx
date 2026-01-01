@@ -9,7 +9,7 @@ import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import { normalizeFonts } from '@/theme/theme.scale';
 
-const OrdersHistoryList = ({ refeshList }: { refeshList: boolean }) => {
+const OrdersHistoryList = () => {
   const [orders, setOrders] = useState<OrderHistoryCardItem[]>([]);
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);

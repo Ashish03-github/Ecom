@@ -8,8 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import RNRestart from 'react-native-restart';
 
 const OrdersHistory = () => {
-  const { Colors, Fonts } = useTheme();
-  const [referesh, setReferesh] = useState(false);
   const navigation = useNavigation();
 
   const clearHistoryPress = async () => {
@@ -31,7 +29,7 @@ const OrdersHistory = () => {
       screenHeadings="Orders History"
     >
       <View style={{ flex: 1 }}>
-        <OrdersHistoryList refeshList={referesh} />
+        <OrdersHistoryList />
       </View>
     </AppContainer>
   );
