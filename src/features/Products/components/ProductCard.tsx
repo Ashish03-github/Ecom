@@ -42,7 +42,7 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       borderRadius: scale(12),
       padding: scale(12),
       paddingBottom: scale(8),
-      backgroundColor: Colors.skyblueLight,
+      backgroundColor: Colors.cream,
     },
   });
 

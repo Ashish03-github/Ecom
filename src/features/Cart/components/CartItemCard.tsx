@@ -1,46 +1,58 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import AppIcon from '@/common/components/AppIcon';
 import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
-import { normalizeFonts, scale } from '@/theme/theme.scale';
+import { normalizeFonts, scale, scaleVertical } from '@/theme/theme.scale';
+import { Product } from '@/features/Products/types/product.type';
+import { useDispatch } from 'react-redux';
+import { removeFromCart } from '../store/cart.slice';
 
-const CartItemCard = () => {
+interface CartItemCardProps {
+  product: Product;
+  key: string;
+}
+const CartItemCard: React.FC<CartItemCardProps> = ({ product, key }) => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Colors, Fonts]);
+  const dispatch = useDispatch();
+
+  const onRemovePress = useCallback(() => {
+    dispatch(removeFromCart(product.id));
+  }, []);
 
   return (
-    <View style={styles.cartCard}>
+    <View key={key} style={styles.cartCard}>
       <View style={styles.imageWrapper}>
         <FastImage
           style={styles.productImage}
           source={{
-            uri: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
+            uri: product.image,
             priority: FastImage.priority.high,
           }}
           resizeMode={FastImage.resizeMode.contain}
         />
 
         <View style={styles.ratingContainer}>
-          <Text style={styles.ratingText}>5.5</Text>
+          <Text style={styles.ratingText}>{product.rating.rate}</Text>
           <AppIcon type="Ionicons" name="star" color="#fcc035" size={10} />
         </View>
       </View>
 
       <View style={styles.contentWrapper}>
         <Text style={styles.productName} numberOfLines={2}>
-          Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+          {product.title}
         </Text>
 
         <Text style={styles.productCategory} numberOfLines={1}>
-          men's clothing
+          {product.category}
         </Text>
 
         <View style={styles.priceContainer}>
           <AppIcon name="indian-rupee-sign" size={16} />
-          <Text style={styles.price}>109.95</Text>
+          <Text style={styles.price}>{product.price.toFixed(2)}</Text>
         </View>
 
         <View style={styles.footerRow}>
@@ -56,7 +68,7 @@ const CartItemCard = () => {
             </TouchableOpacity>
           </View>
 
-          <AppIcon name="trash" color="red" size={14} />
+          <AppIcon onPress={onRemovePress} name="trash" color="red" size={14} />
         </View>
       </View>
     </View>
@@ -67,8 +79,9 @@ const stylesFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
   StyleSheet.create({
     cartCard: {
       width: '100%',
-      height: '22%',
+      height: scaleVertical(150),
       flexDirection: 'row',
+      // backgroundColor: 'red',
       paddingLeft: 0,
       padding: scale(12),
       marginBottom: scale(10),

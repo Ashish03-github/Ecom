@@ -12,7 +12,7 @@ export interface AppIconProps extends IconProps {
     size?: number;
     color?: string;
     type?: IconType;
-    onPress?: () => {}
+    onPress?: () => void;
 }
 
 

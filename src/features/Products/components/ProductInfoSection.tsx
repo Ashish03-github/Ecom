@@ -4,6 +4,7 @@ import useTheme from '@/common/hooks/useTheme';
 import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import { scale } from '@/theme/theme.scale';
+import AppIcon from '@/common/components/AppIcon';
 
 interface ProductInfoSectionProps {
   title: string;
@@ -25,10 +26,15 @@ const ProductInfoSection = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title} numberOfLines={2}>
-        {title}
-      </Text>
-      <Text style={styles.price}>${price.toFixed(2)}</Text>
+      <View style={styles.header}>
+        <Text style={styles.title} numberOfLines={2}>
+          {title}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <AppIcon name="indian-rupee-sign" size={20} color={Colors.primary} />
+          <Text style={styles.price}>{price.toFixed(2)}</Text>
+        </View>
+      </View>
 
       <Text style={styles.category}>{category}</Text>
 
@@ -46,6 +52,9 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
       flex: 1,
       paddingTop: scale(16),
     },
+    header: {
+      marginBottom: scale(0),
+    },
     title: {
       ...Fonts.font600,
       fontSize: scale(16),
@@ -54,6 +63,7 @@ const styleFn = (Colors: ThemeColors, Fonts: ThemeFonts) =>
     price: {
       ...Fonts.font600,
       fontSize: scale(22),
+      marginLeft: scale(2),
       color: Colors.primary,
     },
     categoryContainer: {

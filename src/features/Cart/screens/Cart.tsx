@@ -5,23 +5,16 @@ import { ThemeColors } from '@/theme/theme.colors';
 import { ThemeFonts } from '@/theme/theme.fonts';
 import useTheme from '@/common/hooks/useTheme';
 import { normalizeFonts, scale } from '@/theme/theme.scale';
-import CartItemCard from '../components/CartItemCard';
-import CartSummary from '../components/CartTotal';
-import AppIcon from '@/common/components/AppIcon';
-import CartTotal from '../components/CartTotal';
+import CartItemsList from '../components/CartItemsList';
 
 const Cart = () => {
   const { Colors, Fonts } = useTheme();
   const styles = React.useMemo(() => stylesFn(Colors, Fonts), [Fonts, Colors]);
+
   return (
     <AppContainer screenHeadings="My Cart" buttonLabel={'Place Order'}>
       <View style={styles.container}>
-        <CartItemCard />
-        <CartItemCard />
-        <CartItemCard />
-        <CartItemCard />
-
-        <CartTotal />
+        <CartItemsList />
       </View>
     </AppContainer>
   );

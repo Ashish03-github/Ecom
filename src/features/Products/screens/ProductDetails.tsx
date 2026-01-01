@@ -8,23 +8,33 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Product } from '../types/product.type';
 import { scale } from '@/theme/theme.scale';
 import useTheme from '@/common/hooks/useTheme';
+import { useAppDispatch } from '@/store/hooks';
+import { addToCart } from '@/features/Cart/store/cart.slice';
 
 type RootStackParamList = {
   ProductDetails: { product: Product };
   CartScreen: { product: Product };
-  // Add other screen params as needed
 };
 
 type ProductDetailsRouteProp = RouteProp<RootStackParamList, 'ProductDetails'>;
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProductDetails'>;
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'ProductDetails'
+>;
 
 const ProductDetails = () => {
   const { Colors } = useTheme();
   const navigation = useNavigation<NavigationProp>();
   const route = useRoute<ProductDetailsRouteProp>();
   const { product } = route.params;
+  const dispatch = useAppDispatch();
 
   const navigateToCart = (): void => {
+    dispatch(
+      addToCart({
+        ...product,
+      }),
+    );
     navigation.navigate('CartScreen', { product });
   };
 
@@ -44,12 +54,12 @@ const ProductDetails = () => {
       onPress={navigateToCart}
       screenHeadings="Product Details"
     >
-      <ProductImageSection 
-        image={product.image} 
+      <ProductImageSection
+        image={product.image}
         rating={product.rating.rate}
         ratingCount={product.rating.count}
       />
-      <ProductInfoSection 
+      <ProductInfoSection
         title={product.title}
         price={product.price}
         description={product.description}

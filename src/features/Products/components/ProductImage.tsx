@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: scaleVertical(90),
+    // paddingVertical: 12,
     borderRadius: scale(12),
+    // backgroundColor: 'red',
   },
 });
 
